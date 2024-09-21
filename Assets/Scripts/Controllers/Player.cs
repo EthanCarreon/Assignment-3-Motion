@@ -12,11 +12,15 @@ public class Player : MonoBehaviour
     public float maxSpeed = 5f;
     public float currentSpeed = 0f;
     public float accelerationTime = 3f;
+    public float decelerationTime = 2f;
     float acceleration;
+    float deceleration;
 
+    Vector3 lastPos;
     void Start()
     {
         acceleration = maxSpeed / accelerationTime;
+        deceleration = maxSpeed / decelerationTime;
     }
 
     void Update()
@@ -31,20 +35,22 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-        // Task 1B
+        // Task 1B & 1C
 
         if (movement.magnitude > 0)
         {
-            currentSpeed = currentSpeed + acceleration * Time.deltaTime;
+            currentSpeed += acceleration * Time.deltaTime;
 
             if (currentSpeed > maxSpeed)
             {
                 currentSpeed = maxSpeed;
             }
+
+            lastPos = movement;
         }
         else
         {
-            currentSpeed -= acceleration * Time.deltaTime;
+            currentSpeed -= deceleration * Time.deltaTime;
 
             if (currentSpeed < 0)
             {
@@ -52,7 +58,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        Vector3 velocity = movement * currentSpeed;
+        Vector3 velocity = lastPos * currentSpeed;
         transform.position += velocity * Time.deltaTime;
 
     }
