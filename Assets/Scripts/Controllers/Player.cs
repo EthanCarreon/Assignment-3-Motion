@@ -14,13 +14,11 @@ public class Player : MonoBehaviour
     public float accelerationTime = 3f;
     public float decelerationTime = 2f;
     float acceleration;
-    float deceleration;
 
     Vector3 lastPos;
     void Start()
     {
-        acceleration = maxSpeed / accelerationTime;
-        deceleration = maxSpeed / decelerationTime;
+        
     }
 
     void Update()
@@ -37,6 +35,8 @@ public class Player : MonoBehaviour
 
         // Task 1B & 1C
 
+        acceleration = maxSpeed / accelerationTime;
+
         if (movement.magnitude > 0)
         {
             currentSpeed += acceleration * Time.deltaTime;
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            currentSpeed -= deceleration * Time.deltaTime;
+            currentSpeed -= acceleration * Time.deltaTime;
 
             if (currentSpeed < 0)
             {
@@ -58,13 +58,15 @@ public class Player : MonoBehaviour
             }
         }
 
-        Vector3 velocity = lastPos * currentSpeed;
-        transform.position += velocity * Time.deltaTime;
+        // Task 1A
+
+        transform.position += lastPos * currentSpeed * Time.deltaTime;
 
     }
 
     public void EnemyMovement()
     { 
+
     }
 
 }
