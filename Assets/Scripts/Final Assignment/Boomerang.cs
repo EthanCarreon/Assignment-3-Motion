@@ -27,22 +27,32 @@ public class Boomerang : MonoBehaviour
         {
             OrbitBoomerang();
 
-            if (angle >= 2 * Mathf.PI)
+            if (angle >= 360f)
             {
                 isOrbiting = false;
                 boomerang.SetActive(false);
+                PositionBoomerang();
             }
         }
     }
 
+    public void PositionBoomerang()
+    {
+        Vector2 initialPosition = (Vector2)player.position + offset;
+        boomerang.transform.position = new Vector3(initialPosition.x, initialPosition.y);
+    }
+
     public void OrbitBoomerang()
     {
-        angle += speed * Time.deltaTime * Mathf.Deg2Rad;
+        angle += speed * Time.deltaTime;
 
-        Vector3 orbitCenter = (Vector2)player.position + offset;
+        float angleToRad = angle * Mathf.Deg2Rad;
 
-        Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+        float x = Mathf.Cos(angleToRad) * radius;
+        float y = Mathf.Sin(angleToRad) * radius;
 
-        boomerang.transform.position = orbitCenter + direction;
+        Vector2 centerPosition = new Vector2(player.position.x, player.position.y) + offset;
+
+        boomerang.transform.position = new Vector3(centerPosition.x + x, centerPosition.y + y);
     }
 }
