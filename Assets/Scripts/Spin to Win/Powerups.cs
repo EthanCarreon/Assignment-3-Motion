@@ -25,7 +25,6 @@ public class Powerups : MonoBehaviour
     public float bulletSpeed = 2f;
 
     public GameObject bullet;
-
     void Start()
     {
         startShootPos = transform.position;
@@ -64,14 +63,6 @@ public class Powerups : MonoBehaviour
         }
     }
 
-    void BulletShoot()
-    {
-        startShootPos = transform.position;
-        endShootPos = startShootPos + offset;
-        isShooting = true;
-        bullet.SetActive(true);
-    }
-
     public void SpawnPowerups()
     {
         float angleStep = 360f / powerups;
@@ -92,17 +83,14 @@ public class Powerups : MonoBehaviour
 
     private void OrbitPowerups()
     {
-        Vector3 orbitCenter = transform.position; 
-
         for (int i = 0; i < powerupInstances.Count; i++)
         {
             angles[i] += orbitSpeed * Time.deltaTime * Mathf.Deg2Rad;
 
-            float x = Mathf.Cos(angles[i]) * radius;
-            float y = Mathf.Sin(angles[i]) * radius;
+            Vector3 orbitCenter = (Vector2)transform.position;
+            powerupInstances[i].transform.RotateAround(transform.position, Vector3.forward, orbitSpeed * Time.deltaTime);
 
-            Vector3 direction = new Vector3(x, y);
-
+            Vector3 direction = new Vector3(Mathf.Cos(angles[i]), Mathf.Sin(angles[i])) * radius;
             powerupInstances[i].transform.position = orbitCenter + direction;
         }
     }
@@ -112,7 +100,8 @@ public class Powerups : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C) && powerupInstances.Count > 0 && !isShooting)
         {
             GameObject powerupToRemove = powerupInstances[powerupInstances.Count - 1];
-            powerupInstances.RemoveAt(powerupInstances.Count - 1);
+
+            powerupInstances.Remove(powerupToRemove); 
             Destroy(powerupToRemove);
 
             RefreshAngles();

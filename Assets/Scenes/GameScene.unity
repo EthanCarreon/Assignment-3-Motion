@@ -3774,7 +3774,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200917121}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86a6718efef732f47bc95fadc01811af, type: 3}
   m_Name: 
@@ -3820,7 +3820,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200917121}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19c22216ceda87248b51bcb51256f574, type: 3}
   m_Name: 
@@ -3832,7 +3832,7 @@ MonoBehaviour:
   angles: []
   bulletDist: 0
   bulletDuration: 0
-  bulletSpeed: 2
+  bulletSpeed: 0.5
   bullet: {fileID: 994152166}
 --- !u!4 &1254756013 stripped
 Transform:
@@ -6859,7 +6859,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroid: {fileID: 355990496}
   asteroidDist: 0
-  asteroidSpeed: 2
   asteroidDuration: 5
 --- !u!1001 &2097146127
 PrefabInstance:
